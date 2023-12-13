@@ -54,6 +54,7 @@ func SetEnv(key string, value string) error {
 	return nil
 }
 
+// Read the file return the file with the key and the value as a map of string
 func readFile(filename string) (map[string]string, error) {
 	file, err := os.ReadFile(filename)
 	if err != nil {
