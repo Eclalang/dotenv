@@ -5,18 +5,12 @@ import (
 	"strings"
 )
 
+// Get the value for a key
 func GetEnv(key string) string {
 	return os.Getenv(key)
 }
 
-func SetEnv(key string, value string) error {
-	err := os.Setenv(key, value)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
+// Load the .env, and set the key and value if they don't exist
 func LoadFile(path string) error {
 	envMap, err := readFile(path)
 	curEnv := make(map[string]bool)
@@ -36,6 +30,7 @@ func LoadFile(path string) error {
 	return nil
 }
 
+// Load the .env file, set the key and his value, if a key already exists it changes the value of the key
 func OverloadFile(path string) error {
 	envMap, err := readFile(path)
 	if err != nil {
@@ -46,6 +41,15 @@ func OverloadFile(path string) error {
 		if err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+// Define the value for the key
+func SetEnv(key string, value string) error {
+	err := os.Setenv(key, value)
+	if err != nil {
+		return err
 	}
 	return nil
 }
