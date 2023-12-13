@@ -1,7 +1,6 @@
 package dotenv
 
 import (
-	"github.com/Eclalang/dotenv"
 	"os"
 	"testing"
 )
@@ -9,7 +8,7 @@ import (
 func TestSetEnv(t *testing.T) {
 	key := "test"
 	value := "value"
-	dotenv.SetEnv(key, value)
+	SetEnv(key, value)
 	expected := os.Getenv("test")
 	got := os.Getenv("test")
 	if expected != got {
@@ -21,7 +20,7 @@ func TestGetEnv(t *testing.T) {
 	os.Setenv("test", "value")
 	value := "test"
 	expected := os.Getenv("test")
-	got := dotenv.GetEnv("test")
+	got := GetEnv("test")
 	if expected != got {
 		t.Errorf("dotenv.GetEnv(%s) returned %s, expected %s", value, got, expected)
 	}
@@ -29,11 +28,11 @@ func TestGetEnv(t *testing.T) {
 
 func TestLoadFile(t *testing.T) {
 	os.Setenv("Test", "othervalue")
-	dotenv.LoadFile("test.env")
+	LoadFile("test.env")
 	expected1 := "testvalue"
-	expected2 := dotenv.GetEnv("Test1")
-	got1 := dotenv.GetEnv("Test")
-	got2 := dotenv.GetEnv("Test1")
+	expected2 := GetEnv("Test1")
+	got1 := GetEnv("Test")
+	got2 := GetEnv("Test1")
 	if expected1 != got1 {
 		t.Errorf("dotenv.GetEnv() returned %s, expected %s", got1, expected1)
 	}
@@ -45,11 +44,11 @@ func TestLoadFile(t *testing.T) {
 func TestOverloadFile(t *testing.T) {
 	os.Setenv("Test", "othervalue")
 	os.Setenv("Test1", "othervalue1")
-	dotenv.OverloadFile("test.env")
+	OverloadFile("test.env")
 	expected1 := "testvalue"
 	expected2 := "testvalue1"
-	got1 := dotenv.GetEnv("Test")
-	got2 := dotenv.GetEnv("Test1")
+	got1 := GetEnv("Test")
+	got2 := GetEnv("Test1")
 	if expected1 != got1 {
 		t.Errorf("dotenv.GetEnv() returned %s, expected %s", got1, expected1)
 	}
