@@ -28,12 +28,12 @@ func TestGetEnv(t *testing.T) {
 }
 
 func TestLoadFile(t *testing.T) {
-	os.Setenv("Test", "Pates")
+	os.Setenv("Test", "othervalue")
 	dotenv.LoadFile("test.env")
-	expected1 := "truc"
-	expected2 := os.Getenv("Chose")
+	expected1 := "testvalue"
+	expected2 := dotenv.GetEnv("Test1")
 	got1 := dotenv.GetEnv("Test")
-	got2 := dotenv.GetEnv("Chose")
+	got2 := dotenv.GetEnv("Test1")
 	if expected1 != got1 {
 		t.Errorf("dotenv.GetEnv() returned %s, expected %s", got1, expected1)
 	}
@@ -43,13 +43,13 @@ func TestLoadFile(t *testing.T) {
 }
 
 func TestOverloadFile(t *testing.T) {
-	os.Setenv("Test", "Pates")
-	os.Setenv("Chose", "Pate")
+	os.Setenv("Test", "othervalue")
+	os.Setenv("Test1", "othervalue1")
 	dotenv.OverloadFile("test.env")
-	expected1 := "truc"
-	expected2 := "pates"
+	expected1 := "testvalue"
+	expected2 := "testvalue1"
 	got1 := dotenv.GetEnv("Test")
-	got2 := dotenv.GetEnv("Chose")
+	got2 := dotenv.GetEnv("Test1")
 	if expected1 != got1 {
 		t.Errorf("dotenv.GetEnv() returned %s, expected %s", got1, expected1)
 	}
